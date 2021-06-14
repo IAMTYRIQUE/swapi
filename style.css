@@ -13,8 +13,13 @@ body {
     grid-template-columns: 5% 90% 5%;
 }
 
-.header-container {
+/*header*/
+
+.grid-center {
     grid-column: 2/2;
+}
+
+.header-container {
     margin: 1.875em 0em;
     min-height: 3.125em;
     border-bottom: 0.125em solid #B8B8B8;
@@ -49,7 +54,7 @@ body {
     background-color: #E4E4E4;
 }
 
-.all-cards-link, .decks-link, .bavin-edwards {
+.all-cards-link, .decks-link, .bavin-edwards, .search {
     border-radius: 0.25em;
 }
 
@@ -62,3 +67,55 @@ body {
     border-color: #E4E4E4;
 }
 
+/*breadcrumb*/
+
+.breadcrumb ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.breadcrumb li::before {
+    content: "> ";
+}
+
+.breadcrumb li:first-child::before {
+    content: "";
+}
+
+.breadcrumb a, .breadcrumb span {
+    margin-right: 0.3em;
+    text-decoration: none;
+}
+
+.breadcrumb ul li a {
+    color: #757575;
+}
+
+.breadcrumb ul li span {
+    color: #969696;
+}
+
+.breadcrumb ul li a:hover {
+    text-decoration: underline;
+}
+
+/*search bar*/
+
+.search {
+    min-width: 22.375em;
+    max-width: 30em;
+    min-height: 2em;
+    margin: 1.3em 0em;
+    border: transparent;
+    background-image:url(/assets/Search.svg); 
+    background-repeat: no-repeat; 
+    background-position: 26em 0.188em;
+    text-indent: 0.5em;
+}
+
+input:focus{
+    outline: none;
+    background-image: none;
+}

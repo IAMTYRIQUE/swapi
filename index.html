@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <header class="header-container">
+    <header class="header-container grid-center">
         <div class="card-layout-toggle">
             <div class="all-cards-link">
                 <img src="/assets/Card.svg" alt="">
@@ -22,6 +22,15 @@
             <span>Bavin Edwards</span>
         </div>
     </header>
+    <nav aria-label="Breadcrumb" class="breadcrumb grid-center">
+        <ul>
+            <li><a href="#">All Cards</a></li>
+            <li><span aria-current="page">Select a card</span></li>
+        </ul>
+    </nav>
+
+    <input type="search" class="search grid-center" placeholder="Search">
+
 <script src="script.js"></script>
 </body>
 </html>
