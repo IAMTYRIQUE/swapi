@@ -1,0 +1,64 @@
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    /*border: 1px solid red;*/
+}
+
+body {
+    background-color: #EDEDED;
+    font-size: 100%;
+    font-family: Roboto, sans-serif;
+    display: grid;
+    grid-template-columns: 5% 90% 5%;
+}
+
+.header-container {
+    grid-column: 2/2;
+    margin: 1.875em 0em;
+    min-height: 3.125em;
+    border-bottom: 0.125em solid #B8B8B8;
+    padding-bottom: 1em;
+}
+
+.header-container a {
+    color: #3B3B3B;
+    text-decoration: none;
+}
+
+.header-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card-layout-toggle {
+    display: flex;
+    justify-content: space-between;
+    min-width: 13.25em;
+}
+
+.all-cards-link {
+    min-width: 7em;
+    background-color: #ffffff;
+}
+
+.decks-link {
+    min-width: 5.75em;
+    background-color: #E4E4E4;
+}
+
+.all-cards-link, .decks-link, .bavin-edwards {
+    border-radius: 0.25em;
+}
+
+.all-cards-link, .decks-link, .bavin-edwards {
+    padding: 0.5em 0.75em;
+}
+
+.bavin-edwards {
+    border-style: solid;
+    border-color: #E4E4E4;
+}
+
