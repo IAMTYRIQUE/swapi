@@ -124,24 +124,32 @@ input:focus{
 
 .card-container, .card {
     min-width: 22.375em;
+    max-width: 23em;
     min-height: 17.625em;
     border-radius: 0.5em;
     background-color: #ffffff;
 }
 
 .card-header {
-    display: flex;
-    flex-direction: column;
+    display: grid;
+    grid-template-columns: 5% 90% 5%;
+    align-content: space-around;
     min-height: 6.125em;
     background-color: #969696;
     border-radius: 0.5em 0.5em 0em 0em;
 }
 
-.person-name, .card-icon {
+.person-name {
+    /*align-self: baseline;*/
     color: #ffffff;
 }
 
 .card-icon {
     width: 1em;
     height: 1em;
+}
+
+.card-sub-heading {
+    display: flex;
+    justify-content: space-between;
 }
