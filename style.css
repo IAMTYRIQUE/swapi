@@ -119,3 +119,29 @@ input:focus{
     outline: none;
     background-image: none;
 }
+
+/*card*/
+
+.card-container, .card {
+    min-width: 22.375em;
+    min-height: 17.625em;
+    border-radius: 0.5em;
+    background-color: #ffffff;
+}
+
+.card-header {
+    display: flex;
+    flex-direction: column;
+    min-height: 6.125em;
+    background-color: #969696;
+    border-radius: 0.5em 0.5em 0em 0em;
+}
+
+.person-name, .card-icon {
+    color: #ffffff;
+}
+
+.card-icon {
+    width: 1em;
+    height: 1em;
+}
