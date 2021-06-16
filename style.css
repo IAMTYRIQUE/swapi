@@ -6,11 +6,20 @@
 }
 
 body {
+    min-width: 100%;
     background-color: #EDEDED;
     font-size: 100%;
     font-family: Roboto, sans-serif;
     display: grid;
     grid-template-columns: 5% 90% 5%;
+}
+
+.people-details {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-gap: 2.188em;
+    max-width: 100%;
+    margin-bottom: 2.5em;
 }
 
 /*header*/
@@ -104,14 +113,14 @@ body {
 /*search bar*/
 
 .search {
-    min-width: 22.375em;
-    max-width: 30em;
+    min-width: 27.5em;
+    max-width: 27.6em;
     min-height: 2em;
     margin: 1.3em 0em;
     border: transparent;
     background-image:url(/assets/Search.svg); 
     background-repeat: no-repeat; 
-    background-position: 26em 0.188em;
+    background-position: 98%;
     text-indent: 0.5em;
 }
 
@@ -150,6 +159,95 @@ input:focus{
 }
 
 .card-sub-heading {
+    display: grid;
+    grid-template-columns: 5% 90% 5%;
+    margin: 0.8em 0em;
+}
+
+.gender-container {
+    min-height: 1.3em;
+    border-bottom: 0.125em solid #B8B8B8;
+}
+
+.gender-icon, .card-detail-icon {
+    margin-right: 0.23em;
+}
+
+.gender-container, .species {
+    grid-row: 1;
+}
+
+.species {
+    justify-self: end;
+}
+
+.species, .birth-year {
+    font-size: 0.875em;
+    color: #3B3B3B;
+}
+
+.card-detail-container {
+    display: grid;
+    grid-template-columns: 5% 90% 5%;
+}
+
+.card-detail-title-container {
     display: flex;
     justify-content: space-between;
+    align-items: center;
+    background-color: #EDEDED;
+    min-height: 2em;
+    margin: 0.2em 0em;
+    border-radius: 0.25em;
+}
+
+.card-detail-title, .card-detail-title1, .card-detail-title2 {
+    font-size: 0.625em;
+    color: #757575;
+}
+
+.card-detail-data {
+    font-size: 0.875em;
+    color: #3B3B3B;
+}
+
+.card-title-icon, .card-detail-data {
+    margin: 0em 0.5em;
+}
+
+/*tablet*/
+@media only screen and (min-width:768px) and (max-width:1024px) {
+    body {
+        grid-template-columns: 20% 60% 20%;
+    }
+
+    .search {
+        min-width: 100%;
+        background-position: 98%;
+    }
+
+    .people-details {
+        grid-template-columns: 1fr 1fr;
+        min-width: 100%;
+    }
+}
+
+/*desktop*/
+
+@media only screen and (min-width:1025px) and (max-width:2000px) {
+    body {
+        grid-template-columns: 10% 80% 10%;
+    }
+
+    .people-details {
+        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    }
+}
+
+/*tablet and desktop*/
+@media only screen and (min-width:768px) and (max-width:2000px) {
+    .card-container, .card {
+        min-width: 13.5em;
+        max-width: 14em;
+    }
 }
