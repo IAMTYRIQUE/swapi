@@ -1,6 +1,5 @@
 let baseUrl = 'https://swapi.dev/api/';
 let characterUrl = baseUrl + 'people/';
-let planetUrl = baseUrl + 'planet/';
 
 const section = document.querySelector('.people-details');
 
@@ -13,24 +12,116 @@ const fetchCharacters = async () => {
 fetchCharacters()
     .then(data => showResults(data));
 
-/*fetch(characterUrl).then(function (result) {
-    return result.json();
-}).then(function (json) {
-    console.log(json);
-    showResults(json);
-}).catch(function (err) {
-    console.log('character error: ' + err);
-});*/
-
-
 const showResults = async (json) => {
 
     const characters = json.results;
 
     for (let i = 0; i < characters.length; i++) {
 
+        const cardDetailContainer = document.createElement('div');
+
+        //VEHICLE
+
+        let rowBuilder = (count) => {
+            return {
+                [`cardDetailTitleContainer${count}`]: document.createElement('div'),
+                [`cardTitleIcon${count}`]: document.createElement('div'),
+                [`cardDetailIcon${count}`]: document.createElement('img'),
+                [`cardDetailTitle${count}`]: document.createElement('span'),
+                [`cardDetailData${count}`]: document.createElement('span')
+            }
+        }
+        
+        let elementClassMaker = (count,elementObject) => {
+            elementObject[`cardDetailTitleContainer${count}`].classList.add('card-detail-title-container', 'grid-center')
+            elementObject[`cardTitleIcon${count}`].classList.add('card-title-icon')
+            elementObject[`cardDetailIcon${count}`].classList.add('card-detail-icon')
+            elementObject[`cardDetailTitle${count}`].className = 'card-detail-title'
+            elementObject[`cardDetailData${count}`].classList.add('card-detail-data', 'grid-center')
+        }
+        
+        /**
+         * 
+         * @param {Array} elementObjectArray 
+         */
+        let canvasPainter = (elementObjectArray, data, title) => {
+            let propertyArray = Object.getOwnPropertyNames(elementObjectArray)
+            elementObjectArray[propertyArray[3]].textContent = title
+            elementObjectArray[propertyArray[4]].textContent = data.name
+            cardDetailContainer.appendChild(elementObjectArray[propertyArray[0]]);
+            elementObjectArray[propertyArray[0]].appendChild(elementObjectArray[propertyArray[1]]);
+            elementObjectArray[propertyArray[1]].appendChild(elementObjectArray[propertyArray[2]]);
+            elementObjectArray[propertyArray[1]].appendChild(elementObjectArray[propertyArray[3]]);
+            elementObjectArray[propertyArray[0]].appendChild(elementObjectArray[propertyArray[4]]);
+        }
+
+        let requestData = async(url) => {
+            const response = await fetch(url);
+            return await response.json();
+        }
+
+        /**
+         * 
+         * @param {Array<String>} vehicleUrlArray 
+         */
+        let getVehicleArray = (vehicleUrlArray) => {
+            return vehicleUrlArray.map(async url=> {
+                const res = await requestData(url);
+                return res;
+            })
+        }
+
+        //STARSHIP
+
+        let rowBuilder2 = (count) => {
+            return {
+                [`cardDetailTitleContainer${count}`]: document.createElement('div'),
+                [`cardTitleIcon${count}`]: document.createElement('div'),
+                [`cardDetailIcon${count}`]: document.createElement('img'),
+                [`cardDetailTitle${count}`]: document.createElement('span'),
+                [`cardDetailData${count}`]: document.createElement('span')
+            }
+        }
+        
+        let elementClassMaker2 = (count,elementObject) => {
+            elementObject[`cardDetailTitleContainer${count}`].classList.add('card-detail-title-container', 'grid-center')
+            elementObject[`cardTitleIcon${count}`].classList.add('card-title-icon')
+            elementObject[`cardDetailIcon${count}`].classList.add('card-detail-icon')
+            elementObject[`cardDetailTitle${count}`].className = 'card-detail-title'
+            elementObject[`cardDetailData${count}`].classList.add('card-detail-data', 'grid-center')
+        }
+        
+        /**
+         * 
+         * @param {Array} elementObjectArray 
+         */
+        let canvasPainter2 = (elementObjectArray, data, title) => {
+            let propertyArray = Object.getOwnPropertyNames(elementObjectArray)
+            elementObjectArray[propertyArray[3]].textContent = title
+            elementObjectArray[propertyArray[4]].textContent = data.name
+            cardDetailContainer.appendChild(elementObjectArray[propertyArray[0]]);
+            elementObjectArray[propertyArray[0]].appendChild(elementObjectArray[propertyArray[1]]);
+            elementObjectArray[propertyArray[1]].appendChild(elementObjectArray[propertyArray[2]]);
+            elementObjectArray[propertyArray[1]].appendChild(elementObjectArray[propertyArray[3]]);
+            elementObjectArray[propertyArray[0]].appendChild(elementObjectArray[propertyArray[4]]);
+        }
+
+        /**
+         * 
+         * @param {Array<String>} starshipUrlArray 
+         */
+
+        let getStarshipArray = (starshipUrlArray) => {
+            return starshipUrlArray.map(async url=> {
+                const res = await requestData(url);
+                return res;
+            })
+        }
+        
+
         const character = characters[i];
-        let characterSpecies;
+        let characterSpecies = 'Human'
+        let characterHomeworld = "Planet";
         
         if (character.species.length > 0) {
             const speciesUrl = character.species[0];
@@ -42,15 +133,13 @@ const showResults = async (json) => {
             }).catch(function (err) {
                 console.log(err);
             });
-        } else {
-            characterSpecies = 'Human';
         }
 
         if (character.homeworld !== null && character.homeworld !== '') {
-            await fetch(homeworldUrl).then(function(response) {
+            await fetch(character.homeworld).then(function(response) {
                 return response.json();
             }).then(function (data) {
-                characterHomeworld = data.response;
+                characterHomeworld = data.name;
                 console.log(characterHomeworld);
             }).catch(function (err) {
                 console.log(err);
@@ -70,8 +159,6 @@ const showResults = async (json) => {
         const birthYear = document.createElement('span');
         const species = document.createElement('span');
 
-        const cardDetailContainer = document.createElement('div');
-
         const cardDetailTitleContainer = document.createElement('div');
         const cardTitleIcon = document.createElement('div');
         const cardDetailIcon = document.createElement('img');
@@ -90,6 +177,7 @@ const showResults = async (json) => {
         const cardDetailTitle2 = document.createElement('span');
         const cardDetailData2 = document.createElement('span');
 
+        cardContainer.id = `cardContainer${i}`;
         cardContainer.className = 'card-container';
         card.className = 'card';
         cardHeader.className = 'card-header';
@@ -143,9 +231,9 @@ const showResults = async (json) => {
 
         cardDetailTitle.textContent = 'HOMEWORLD';
         cardDetailTitle1.textContent = 'VEHICLES';
-        cardDetailTitle2.textContent = 'STARSHIP';
+        cardDetailTitle2.textContent = 'STARSHIPS';
 
-        cardDetailData.textContent = 'Planet';
+        cardDetailData.textContent = characterHomeworld;
         cardDetailData1.textContent = character.vehicles.length;
         cardDetailData2.textContent = character.starships.length;
 
@@ -183,5 +271,42 @@ const showResults = async (json) => {
         cardTitleIcon2.appendChild(cardDetailIcon2);
         cardTitleIcon2.appendChild(cardDetailTitle2);
         cardDetailTitleContainer2.appendChild(cardDetailData2);
+
+        cardContainer.addEventListener('click', function () {
+            cardDetailTitleContainer1.parentNode.removeChild(cardDetailTitleContainer1);
+            cardDetailTitleContainer2.parentNode.removeChild(cardDetailTitleContainer2);
+
+            
+            // let otherCards = cardContainer;
+            // otherCards.remove();
+
+            getVehicleArray(character.vehicles).forEach((data, index) => {
+                Promise.resolve(data).then(res=>{
+                    let elementObject = rowBuilder(index+3)
+                    elementClassMaker(index+3,elementObject)
+                    canvasPainter(elementObject,res,"VEHICLE")
+                })
+            })
+            getStarshipArray(character.starships).forEach((data, index) => {
+                Promise.resolve(data).then(res=>{
+                    let elementObject = rowBuilder2(index+9)
+                    elementClassMaker2(index+9,elementObject)
+                    canvasPainter2(elementObject,res,"STARSHIP")
+                })
+            })
+
+
+            var tag_name = this.id;
+            console.log(tag_name);
+
+            const searchInput = document.querySelector('#searchInput');
+            console.log(searchInput);
+
+            if (searchInput.textContent === 'Luke Skywalker') {
+                cardContainer[i].style.display = 'block';
+            } else {
+                cardContainer[i].style.display = 'none';
+            }
+        }, {once: true});
     }
 }
