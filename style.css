@@ -21,7 +21,7 @@ body {
 .people-details {
     display: grid;
     grid-template-columns: 1fr;
-    grid-gap: 2.188em;
+    grid-gap: 2em;
     max-width: 100%;
     margin-bottom: 2.5em;
 }
@@ -75,6 +75,15 @@ body {
     padding: 0.5em 0.75em;
 }
 
+.header-title1-color {
+    color: #3B3B3B;
+}
+
+.header-title2-color {
+    color: #969696;
+}
+
+
 .bavin-edwards {
     border-style: solid;
     border-color: #E4E4E4;
@@ -120,6 +129,7 @@ body {
     min-width: 27.5em;
     max-width: 27.6em;
     min-height: 2em;
+    max-height: 2em;
     margin: 1.3em 0em;
     border: transparent;
     background-image:url(/assets/Search.svg); 
@@ -157,7 +167,6 @@ input:focus{
 }
 
 .person-name {
-    /*align-self: baseline;*/
     color: #ffffff;
 }
 
@@ -242,6 +251,10 @@ input:focus{
         grid-template-columns: 1fr 1fr;
         min-width: 100%;
     }
+
+    .deck-builder {
+        display: none;
+    }    
 }
 
 /*desktop*/
@@ -252,14 +265,29 @@ input:focus{
     }
 
     .people-details {
-        grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+        display: flex;
+        flex-wrap: wrap;
     }
+
+    .deck-builder-container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        min-width: 55%;
+    }
+    
 }
 
 /*tablet and desktop*/
 @media only screen and (min-width:768px) {
     .card-container, .card {
         min-width: 13.5em;
-        max-width: 14em;
+        max-width: 20em;
+    }
+}
+
+@media only screen and (max-width:1024px) {
+    .deck-builder {
+        display: none;
     }
 }
