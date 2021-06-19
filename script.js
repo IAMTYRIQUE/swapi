@@ -32,12 +32,12 @@ const showResults = async (json) => {
             }
         }
         
-        let elementClassMaker = (count,elementObject) => {
-            elementObject[`cardDetailTitleContainer${count}`].classList.add('card-detail-title-container', 'grid-center')
-            elementObject[`cardTitleIcon${count}`].classList.add('card-title-icon')
-            elementObject[`cardDetailIcon${count}`].classList.add('card-detail-icon')
-            elementObject[`cardDetailTitle${count}`].className = 'card-detail-title'
-            elementObject[`cardDetailData${count}`].classList.add('card-detail-data', 'grid-center')
+        let elementClassMaker = (count, elementObject) => {
+            elementObject[`cardDetailTitleContainer${count}`].classList.add('card-detail-title-container', 'grid-center');
+            elementObject[`cardTitleIcon${count}`].classList.add('card-title-icon');
+            elementObject[`cardDetailIcon${count}`].classList.add('card-detail-icon');
+            elementObject[`cardDetailTitle${count}`].className = 'card-detail-title';
+            elementObject[`cardDetailData${count}`].classList.add('card-detail-data', 'grid-center');
         }
         
         /**
@@ -45,9 +45,10 @@ const showResults = async (json) => {
          * @param {Array} elementObjectArray 
          */
         let canvasPainter = (elementObjectArray, data, title) => {
-            let propertyArray = Object.getOwnPropertyNames(elementObjectArray)
-            elementObjectArray[propertyArray[3]].textContent = title
-            elementObjectArray[propertyArray[4]].textContent = data.name
+            let propertyArray = Object.getOwnPropertyNames(elementObjectArray);
+            elementObjectArray[propertyArray[2]].src = '/assets/Vehicle.svg';
+            elementObjectArray[propertyArray[3]].textContent = title;
+            elementObjectArray[propertyArray[4]].textContent = data.name;
             cardDetailContainer.appendChild(elementObjectArray[propertyArray[0]]);
             elementObjectArray[propertyArray[0]].appendChild(elementObjectArray[propertyArray[1]]);
             elementObjectArray[propertyArray[1]].appendChild(elementObjectArray[propertyArray[2]]);
@@ -83,22 +84,24 @@ const showResults = async (json) => {
             }
         }
         
-        let elementClassMaker2 = (count,elementObject) => {
-            elementObject[`cardDetailTitleContainer${count}`].classList.add('card-detail-title-container', 'grid-center')
-            elementObject[`cardTitleIcon${count}`].classList.add('card-title-icon')
-            elementObject[`cardDetailIcon${count}`].classList.add('card-detail-icon')
-            elementObject[`cardDetailTitle${count}`].className = 'card-detail-title'
-            elementObject[`cardDetailData${count}`].classList.add('card-detail-data', 'grid-center')
+        let elementClassMaker2 = (count, elementObject) => {
+            elementObject[`cardDetailTitleContainer${count}`].classList.add('card-detail-title-container', 'grid-center');
+            elementObject[`cardTitleIcon${count}`].classList.add('card-title-icon');
+            elementObject[`cardDetailIcon${count}`].classList.add('card-detail-icon');
+            elementObject[`cardDetailTitle${count}`].className = 'card-detail-title';
+            elementObject[`cardDetailData${count}`].classList.add('card-detail-data', 'grid-center');
         }
         
         /**
          * 
          * @param {Array} elementObjectArray 
          */
+        
         let canvasPainter2 = (elementObjectArray, data, title) => {
-            let propertyArray = Object.getOwnPropertyNames(elementObjectArray)
-            elementObjectArray[propertyArray[3]].textContent = title
-            elementObjectArray[propertyArray[4]].textContent = data.name
+            let propertyArray = Object.getOwnPropertyNames(elementObjectArray);
+            elementObjectArray[propertyArray[2]].src = '/assets/Starship.svg';
+            elementObjectArray[propertyArray[3]].textContent = title;
+            elementObjectArray[propertyArray[4]].textContent = data.name;
             cardDetailContainer.appendChild(elementObjectArray[propertyArray[0]]);
             elementObjectArray[propertyArray[0]].appendChild(elementObjectArray[propertyArray[1]]);
             elementObjectArray[propertyArray[1]].appendChild(elementObjectArray[propertyArray[2]]);
@@ -112,13 +115,12 @@ const showResults = async (json) => {
          */
 
         let getStarshipArray = (starshipUrlArray) => {
-            return starshipUrlArray.map(async url=> {
+            return starshipUrlArray.map(async url => {
                 const res = await requestData(url);
                 return res;
             })
         }
         
-
         const character = characters[i];
         let characterSpecies = 'Human'
         let characterHomeworld = "Planet";
@@ -218,7 +220,6 @@ const showResults = async (json) => {
             genderIcon.src = '/assets/Gender-Female.svg';
         } else {    
             genderIcon.src = '/assets/Deck.svg';
-            genderIcon.alt = '?';
         }
 
         species.textContent = characterSpecies;
@@ -275,38 +276,31 @@ const showResults = async (json) => {
         cardContainer.addEventListener('click', function () {
             cardDetailTitleContainer1.parentNode.removeChild(cardDetailTitleContainer1);
             cardDetailTitleContainer2.parentNode.removeChild(cardDetailTitleContainer2);
-
             
-            // let otherCards = cardContainer;
-            // otherCards.remove();
+            card.style.width = 300;
+            cardContainer.style.width = 300;
+            cardContainer.style.height = 450;
+            card.style.height = 450;
 
             getVehicleArray(character.vehicles).forEach((data, index) => {
-                Promise.resolve(data).then(res=>{
-                    let elementObject = rowBuilder(index+3)
-                    elementClassMaker(index+3,elementObject)
-                    canvasPainter(elementObject,res,"VEHICLE")
+                Promise.resolve(data).then(res => {
+                    let elementObject = rowBuilder(index + 3)
+                    elementClassMaker(index + 3, elementObject)
+                    canvasPainter(elementObject, res, "VEHICLE")
                 })
-            })
+            });
             getStarshipArray(character.starships).forEach((data, index) => {
-                Promise.resolve(data).then(res=>{
+                Promise.resolve(data).then(res => {
                     let elementObject = rowBuilder2(index+9)
-                    elementClassMaker2(index+9,elementObject)
-                    canvasPainter2(elementObject,res,"STARSHIP")
+                    elementClassMaker2(index + 9, elementObject)
+                    canvasPainter2(elementObject, res, "STARSHIP")
                 })
-            })
+            });
+            
+            cardContainer.addEventListener('click', function() {
+                location.reload();
+            }, {once: true});
 
-
-            var tag_name = this.id;
-            console.log(tag_name);
-
-            const searchInput = document.querySelector('#searchInput');
-            console.log(searchInput);
-
-            if (searchInput.textContent === 'Luke Skywalker') {
-                cardContainer[i].style.display = 'block';
-            } else {
-                cardContainer[i].style.display = 'none';
-            }
-        }, {once: true});
+        }, {once: true}); 
     }
 }
