@@ -67,11 +67,11 @@ body {
     background-color: #E4E4E4;
 }
 
-.all-cards-link, .decks-link, .bavin-edwards, .search {
+.all-cards-link, .decks-link, .tyrique-webley {                                                                                                                                  /*.search*/
     border-radius: 0.25em;
 }
 
-.all-cards-link, .decks-link, .bavin-edwards {
+.all-cards-link, .decks-link, .tyrique-webley {
     padding: 0.5em 0.75em;
 }
 
@@ -84,13 +84,14 @@ body {
 }
 
 
-.bavin-edwards {
+.tyrique-webley {
     border-style: solid;
     border-color: #E4E4E4;
 }
 
-/*breadcrumb*/
 
+/*breadcrumb*/
+/* 
 .breadcrumb ul {
     display: flex;
     list-style: none;
@@ -121,11 +122,11 @@ body {
 
 .breadcrumb ul li a:hover {
     text-decoration: underline;
-}
+} */
 
 /*search bar*/
 
-.search {
+/* .search {
     min-width: 27.5em;
     max-width: 27.6em;
     min-height: 2em;
@@ -136,7 +137,7 @@ body {
     background-repeat: no-repeat; 
     background-position: 98%;
     text-indent: 0.5em;
-}
+} */
 
 input:focus{
     outline: none;
@@ -242,10 +243,10 @@ input:focus{
         grid-template-columns: 20% 60% 20%;
     }
 
-    .search {
+    /* .search {
         min-width: 100%;
         background-position: 98%;
-    }
+    } */
 
     .people-details {
         grid-template-columns: 1fr 1fr;
