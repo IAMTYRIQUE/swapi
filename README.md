@@ -1,9 +1,10 @@
 # STAR WARS API \- SWAPI
 
 ## Overview
-
+```
 This is a **JavaScript** web application which interacts with The Star Wars API to fetch character data.
 The information that was returned from the API are as follows:
+```
 - Character name
 - Gender
 - Birth year
