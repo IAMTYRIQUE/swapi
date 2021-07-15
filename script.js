@@ -24,7 +24,7 @@ const showResults = async (json) => {
 
         let rowBuilder = (count) => {
             return {
-                [`cardDetailTitleContainer${count}`]: document.createElement('div'),
+                [`cardDetailTitleContainer${count}`]: document.createElement('div'), //property: value
                 [`cardTitleIcon${count}`]: document.createElement('div'),
                 [`cardDetailIcon${count}`]: document.createElement('img'),
                 [`cardDetailTitle${count}`]: document.createElement('span'),
@@ -32,7 +32,7 @@ const showResults = async (json) => {
             }
         }
         
-        let elementClassMaker = (count, elementObject) => {
+        let elementClassMaker = (count, elementObject) => { //elemOb is what the object being return from row builder
             elementObject[`cardDetailTitleContainer${count}`].classList.add('card-detail-title-container', 'grid-center');
             elementObject[`cardTitleIcon${count}`].classList.add('card-title-icon');
             elementObject[`cardDetailIcon${count}`].classList.add('card-detail-icon');
@@ -42,18 +42,18 @@ const showResults = async (json) => {
         
         /**
          * 
-         * @param {Array} elementObjectArray 
+         * @param {Array} elementObject //not an array but tells it to treat it as an array
          */
-        let canvasPainter = (elementObjectArray, data, title) => {
-            let propertyArray = Object.getOwnPropertyNames(elementObjectArray);
-            elementObjectArray[propertyArray[2]].src = '/assets/Vehicle.svg';
-            elementObjectArray[propertyArray[3]].textContent = title;
-            elementObjectArray[propertyArray[4]].textContent = data.name;
-            cardDetailContainer.appendChild(elementObjectArray[propertyArray[0]]);
-            elementObjectArray[propertyArray[0]].appendChild(elementObjectArray[propertyArray[1]]);
-            elementObjectArray[propertyArray[1]].appendChild(elementObjectArray[propertyArray[2]]);
-            elementObjectArray[propertyArray[1]].appendChild(elementObjectArray[propertyArray[3]]);
-            elementObjectArray[propertyArray[0]].appendChild(elementObjectArray[propertyArray[4]]);
+        let canvasPainter = (elementObject, data, title) => {
+            let propertyArray = Object.getOwnPropertyNames(elementObject); //use this get property names of obj and store in array
+            elementObject[propertyArray[2]].src = '/assets/Vehicle.svg';
+            elementObject[propertyArray[3]].textContent = title;
+            elementObject[propertyArray[4]].textContent = data.name;
+            cardDetailContainer.appendChild(elementObject[propertyArray[0]]);
+            elementObject[propertyArray[0]].appendChild(elementObject[propertyArray[1]]);
+            elementObject[propertyArray[1]].appendChild(elementObject[propertyArray[2]]);
+            elementObject[propertyArray[1]].appendChild(elementObject[propertyArray[3]]);
+            elementObject[propertyArray[0]].appendChild(elementObject[propertyArray[4]]);
         }
 
         let requestData = async(url) => {
@@ -65,59 +65,10 @@ const showResults = async (json) => {
          * 
          * @param {Array<String>} vehicleUrlArray 
          */
-        let getVehicleArray = (vehicleUrlArray) => {
-            return vehicleUrlArray.map(async url=> {
+        let getTransportArray = (vehicleUrlArray) => {
+            return vehicleUrlArray.map(async url=> { //map loops through an array and returns an array
                 const res = await requestData(url);
-                return res;
-            })
-        }
-
-        //STARSHIP
-
-        let rowBuilder2 = (count) => {
-            return {
-                [`cardDetailTitleContainer${count}`]: document.createElement('div'),
-                [`cardTitleIcon${count}`]: document.createElement('div'),
-                [`cardDetailIcon${count}`]: document.createElement('img'),
-                [`cardDetailTitle${count}`]: document.createElement('span'),
-                [`cardDetailData${count}`]: document.createElement('span')
-            }
-        }
-        
-        let elementClassMaker2 = (count, elementObject) => {
-            elementObject[`cardDetailTitleContainer${count}`].classList.add('card-detail-title-container', 'grid-center');
-            elementObject[`cardTitleIcon${count}`].classList.add('card-title-icon');
-            elementObject[`cardDetailIcon${count}`].classList.add('card-detail-icon');
-            elementObject[`cardDetailTitle${count}`].className = 'card-detail-title';
-            elementObject[`cardDetailData${count}`].classList.add('card-detail-data', 'grid-center');
-        }
-        
-        /**
-         * 
-         * @param {Array} elementObjectArray 
-         */
-        
-        let canvasPainter2 = (elementObjectArray, data, title) => {
-            let propertyArray = Object.getOwnPropertyNames(elementObjectArray);
-            elementObjectArray[propertyArray[2]].src = '/assets/Starship.svg';
-            elementObjectArray[propertyArray[3]].textContent = title;
-            elementObjectArray[propertyArray[4]].textContent = data.name;
-            cardDetailContainer.appendChild(elementObjectArray[propertyArray[0]]);
-            elementObjectArray[propertyArray[0]].appendChild(elementObjectArray[propertyArray[1]]);
-            elementObjectArray[propertyArray[1]].appendChild(elementObjectArray[propertyArray[2]]);
-            elementObjectArray[propertyArray[1]].appendChild(elementObjectArray[propertyArray[3]]);
-            elementObjectArray[propertyArray[0]].appendChild(elementObjectArray[propertyArray[4]]);
-        }
-
-        /**
-         * 
-         * @param {Array<String>} starshipUrlArray 
-         */
-
-        let getStarshipArray = (starshipUrlArray) => {
-            return starshipUrlArray.map(async url => {
-                const res = await requestData(url);
-                return res;
+                return res; //adding another index to the array
             })
         }
         
@@ -282,18 +233,18 @@ const showResults = async (json) => {
             cardContainer.style.height = 450;
             card.style.height = 450;
 
-            getVehicleArray(character.vehicles).forEach((data, index) => {
+            getTransportArray(character.vehicles).forEach((data, index) => {
                 Promise.resolve(data).then(res => {
-                    let elementObject = rowBuilder(index + 3)
+                    let elementObject = rowBuilder(index + 3) //so that things wont overlap
                     elementClassMaker(index + 3, elementObject)
                     canvasPainter(elementObject, res, "VEHICLE")
                 })
             });
-            getStarshipArray(character.starships).forEach((data, index) => {
+            getTransportArray(character.starships).forEach((data, index) => {
                 Promise.resolve(data).then(res => {
-                    let elementObject = rowBuilder2(index+9)
-                    elementClassMaker2(index + 9, elementObject)
-                    canvasPainter2(elementObject, res, "STARSHIP")
+                    let elementObject = rowBuilder(index+9)
+                    elementClassMaker(index + 9, elementObject)
+                    canvasPainter(elementObject, res, "STARSHIP")
                 })
             });
             
@@ -304,3 +255,8 @@ const showResults = async (json) => {
         }, {once: true}); 
     }
 }
+
+
+//code qual - test, comments (not every line; todo comments)
+//test frameworks - jest
+//communication - easy to talk with; flat hierarchy (easy communication with other emp)
